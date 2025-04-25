@@ -2,6 +2,7 @@ package com.spring.implementation.controller;
 
 import java.util.Map;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,9 @@ import com.razorpay.RazorpayException;
 import com.spring.implementation.model.Orders;
 import com.spring.implementation.service.OrderService;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Order API")
 public class OrdersController {
 	
 	@Autowired
