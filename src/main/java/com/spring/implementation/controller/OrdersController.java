@@ -57,7 +57,7 @@ public class OrdersController {
 
 		// Once the order is updated, you can provide the URL for the success page.
 		Map<String, String> response = new HashMap<>();
-		response.put("redirectUrl", "https://virtual-herbal-garden-frontend.vercel.app/");
+		response.put("redirectUrl", "http://localhost:5173/payment-success");
 
 		return ResponseEntity.ok(response);
 	}
