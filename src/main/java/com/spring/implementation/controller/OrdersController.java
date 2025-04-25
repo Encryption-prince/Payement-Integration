@@ -1,9 +1,11 @@
 package com.spring.implementation.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,16 +53,23 @@ public class OrdersController {
 //		return ResponseEntity.ok(updatedOrder);
 //	}
 
-	@PostMapping("/paymentCallback")
-	public ResponseEntity<Map<String, String>> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
-		Orders updatedOrder = orderService.updateStatus(callbackData);
+//	@PostMapping("/paymentCallback")
+//	public ResponseEntity<Map<String, String>> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
+//		Orders updatedOrder = orderService.updateStatus(callbackData);
+//
+//		// Once the order is updated, you can provide the URL for the success page.
+//		Map<String, String> response = new HashMap<>();
+//		response.put("redirectUrl", "http://localhost:5173/payment-success");
+//
+//		return ResponseEntity.ok(response);
+//	}
+@PostMapping("/paymentCallback")
+public void updatePaymentStatus(HttpServletResponse response, @RequestBody Map<String, String> callbackData) throws IOException {
+	Orders updatedOrder = orderService.updateStatus(callbackData);
 
-		// Once the order is updated, you can provide the URL for the success page.
-		Map<String, String> response = new HashMap<>();
-		response.put("redirectUrl", "http://localhost:5173/payment-success");
-
-		return ResponseEntity.ok(response);
-	}
+	// After updating the order, redirect to the success page
+	response.sendRedirect("http://localhost:5173/payment-success");
+}
 
 
 }
