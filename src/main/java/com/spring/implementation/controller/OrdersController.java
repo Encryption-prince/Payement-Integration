@@ -63,13 +63,19 @@ public class OrdersController {
 //
 //		return ResponseEntity.ok(response);
 //	}
-@PostMapping("/paymentCallback")
-public void updatePaymentStatus(HttpServletResponse response, @RequestBody Map<String, String> callbackData) throws IOException {
-	Orders updatedOrder = orderService.updateStatus(callbackData);
+//@PostMapping("/paymentCallback")
+//public void updatePaymentStatus(HttpServletResponse response, @RequestBody Map<String, String> callbackData) throws IOException {
+//	Orders updatedOrder = orderService.updateStatus(callbackData);
+//
+//	// After updating the order, redirect to the success page
+//	response.sendRedirect("http://localhost:5173/payment-success");
+//}
 
-	// After updating the order, redirect to the success page
-	response.sendRedirect("http://localhost:5173/payment-success");
-}
+	@PostMapping("/paymentCallback")
+	public ResponseEntity<String> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
+		Orders updatedOrder = orderService.updateStatus(callbackData);
+		return ResponseEntity.ok("Payment status updated");
+	}
 
 
 }
