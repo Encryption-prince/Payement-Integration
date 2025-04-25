@@ -1,5 +1,6 @@
 package com.spring.implementation.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,10 +45,21 @@ public class OrdersController {
 		return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
 	}
 
+//	@PostMapping("/paymentCallback")
+//	public ResponseEntity<Orders> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
+//		Orders updatedOrder = orderService.updateStatus(callbackData);
+//		return ResponseEntity.ok(updatedOrder);
+//	}
+
 	@PostMapping("/paymentCallback")
-	public ResponseEntity<Orders> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
+	public ResponseEntity<Map<String, String>> updatePaymentStatus(@RequestBody Map<String, String> callbackData) {
 		Orders updatedOrder = orderService.updateStatus(callbackData);
-		return ResponseEntity.ok(updatedOrder);
+
+		// Once the order is updated, you can provide the URL for the success page.
+		Map<String, String> response = new HashMap<>();
+		response.put("redirectUrl", "https://virtual-herbal-garden-frontend.vercel.app/");
+
+		return ResponseEntity.ok(response);
 	}
 
 
